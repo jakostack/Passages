@@ -14,7 +14,7 @@
 			<a> Passages<br/>
 				
 			navigate with WASD / arrows / mouse
-		</div>
+			</br>
 
 		<script type="module">
 
@@ -47,18 +47,30 @@
 				camera.add( listener );
 
 				scene = new THREE.Scene();
-				scene.fog = new THREE.FogExp2( 0xffffff, 0.0025 );
+				scene.background = new THREE.Color( 0xa0a0a0 );
+				scene.fog = new THREE.Fog( 0xa0a0a0, 100, 500 );
 
-				light = new THREE.DirectionalLight( 0xffffff );
-				light.position.set( 0, 0.5, 2 ).normalize();
-				scene.add( light );
+				var hemiLight = new THREE.HemisphereLight( 0xffffff, 0x444444 );
+				hemiLight.position.set( 0, 60, 0 );
+				scene.add( hemiLight );
+
+				var dirLight = new THREE.DirectionalLight( 0xffffff );
+				dirLight.position.set( 3, 10, 10 );
+				dirLight.castShadow = true;
+				dirLight.shadow.camera.top = 2;
+				dirLight.shadow.camera.bottom = - 2;
+				dirLight.shadow.camera.left = - 2;
+				dirLight.shadow.camera.right = 2;
+				dirLight.shadow.camera.near = 0.1;
+				dirLight.shadow.camera.far = 40;
+				scene.add( dirLight );
 
 				var sphere = new THREE.SphereBufferGeometry( 20, 32, 16 );
 				var cube = new THREE.BoxBufferGeometry( 20, 40, 16 );
 
-				material1 = new THREE.MeshPhongMaterial( { color: 0xffaa00, flatShading: true, shininess: 60 } );
-				material2 = new THREE.MeshPhongMaterial( { color: 0xff2200, flatShading: true, shininess: 60 } );
-				material3 = new THREE.MeshPhongMaterial( { color: 0x6622aa, flatShading: true, shininess: 60 } );
+				material1 = new THREE.MeshPhongMaterial( { color: 0xffffff, flatShading: true, shininess: 60 } );
+				material2 = new THREE.MeshPhongMaterial( { color: 0xffffff, flatShading: true, shininess: 60 } );
+				material3 = new THREE.MeshPhongMaterial( { color: 0xffffff, flatShading: true, shininess: 60 } );
 				
 
 				// sound spheres Mesh1
@@ -90,7 +102,7 @@
 				audioLoader.load( 'sounds/graduationceremony.mp3', function ( buffer ) {
 
 					sound2.setBuffer( buffer );
-					sound2.setRefDistance( 20 );
+					sound2.setRefDistance( 10 );
 					sound2.play();
 
 				} );
@@ -106,7 +118,7 @@
 				audioLoader.load( 'sounds/laxairport.mp3', function ( buffer ) {
 
 					sound3.setBuffer( buffer );
-					sound3.setRefDistance( 20 );
+					sound3.setRefDistance( 10 );
 					sound3.play();
 
 				} );
@@ -122,7 +134,7 @@
 				audioLoader.load( 'sounds/newsreportadaptation.mp3', function ( buffer ) {
 
 					sound4.setBuffer( buffer );
-					sound4.setRefDistance( 20 );
+					sound4.setRefDistance( 10 );
 					sound4.play();
 
 				} );
@@ -138,7 +150,7 @@
 				audioLoader.load( 'sounds/parentsevening.mp3', function ( buffer ) {
 
 					sound5.setBuffer( buffer );
-					sound5.setRefDistance( 20 );
+					sound5.setRefDistance( 10 );
 					sound5.play();
 
 				} );
@@ -154,7 +166,7 @@
 				audioLoader.load( 'sounds/pulitzerceremony.mp3', function ( buffer ) {
 
 					sound6.setBuffer( buffer );
-					sound6.setRefDistance( 20 );
+					sound6.setRefDistance( 10 );
 					sound6.play();
 
 				} );
@@ -170,7 +182,7 @@
 				audioLoader.load( 'sounds/thirdpartyclosingmonologue.mp3', function ( buffer ) {
 
 					sound7.setBuffer( buffer );
-					sound7.setRefDistance( 20 );
+					sound7.setRefDistance( 10 );
 					sound7.play();
 
 				} );
@@ -185,7 +197,7 @@
 				audioLoader.load( 'sounds/tonicclosingmonologue.mp3', function ( buffer ) {
 
 					sound8.setBuffer( buffer );
-					sound8.setRefDistance( 20 );
+					sound8.setRefDistance( 10 );
 					sound8.play();
 
 				} );
@@ -201,11 +213,11 @@
 				audioLoader.load( 'sounds/tvscrollinspiration.mp3', function ( buffer ) {
 
 					sound9.setBuffer( buffer );
-					sound9.setRefDistance( 20 );
+					sound9.setRefDistance( 10 );
 					sound9.play();
 
 				} );
-				mesh9.add( sound9 );
+				mesh9.add( sound9 )
 
 
 
@@ -224,9 +236,10 @@
 				
 				// ground
 
-				var helper = new THREE.GridHelper( 1000, 10, 0xffffff, 0xffffff );
-				helper.position.y = 0.1;
-				scene.add( helper );
+				var mesh = new THREE.Mesh( new THREE.PlaneBufferGeometry( 4000, 4000 ), new THREE.MeshPhongMaterial( { color: 0xffffff, depthWrite: false } ) );
+				mesh.rotation.x = - Math.PI / 2;
+				mesh.receiveShadow = true;
+				scene.add( mesh );
 
 				//
 
