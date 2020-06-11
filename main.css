@@ -1,7 +1,3 @@
-:root {
-	color-scheme: light dark;
-}
-
 html {
 	touch-action: none;
 }
@@ -11,11 +7,16 @@ body {
 	font-size: 14px;
 	margin: 0;
 	overflow: hidden;
+	text-align: center;
+	
+	
 }
 
 hr {
 	border: 0;
 	border-top: 1px solid #ccc;
+	text-align: center;
+	
 }
 
 button {
@@ -26,6 +27,8 @@ textarea {
 	tab-size: 4;
 	white-space: pre;
 	word-wrap: normal;
+	text-align: center;
+	
 }
 
 	textarea.success {
